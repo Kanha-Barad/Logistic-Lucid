@@ -142,16 +142,17 @@ class _LogisticDashboardState extends State<LogisticDashboard> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: AppBar(leading: Container(
-                        height: 100.0,
-                        width: 90.0,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/lucid.png"),
-                                fit: BoxFit.fitWidth)),
-                      ),
+        appBar: AppBar(
+          // leading: Container(
+          //               height: 100.0,
+          //               width: 90.0,
+          //               decoration: const BoxDecoration(
+          //                   shape: BoxShape.rectangle,
+          //                   image: DecorationImage(
+          //                       image: AssetImage(
+          //                           "assets/lucid.png"),
+          //                       fit: BoxFit.fitWidth)),
+          //             ),
           automaticallyImplyLeading: false,
           backgroundColor: const Color(0xff123456),
           title: const Text("Dashboard",
