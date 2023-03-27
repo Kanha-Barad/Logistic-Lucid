@@ -20,7 +20,7 @@ class _LogisticDashboardState extends State<LogisticDashboard> {
   @override
   Widget build(BuildContext context) {
     Widget logisticBottomBar = Container(
-      height: 50,
+      height: 60,
       color: const Color(0xff123456),
       child: Padding(
         padding: const EdgeInsets.only(top: 8),
