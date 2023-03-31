@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 String CompletedAreaID = "";
 var CompleteddataLastIndex = null;
 String CompletedTimeAreaLocartion = "";
@@ -23,3 +25,13 @@ String pendingTripShiftId = "";
 
 String Total_SampleColectedByArea = "";
 var TRFImgPath = null;
+
+
+late SharedPreferences logindata;
+
+void main() async {
+  logindata = await SharedPreferences.getInstance();
+  // runApp(new MyApp());
+}
+
+var selectedLogin_Data = "";
