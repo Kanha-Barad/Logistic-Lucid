@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Logistics_DashBoard.dart';
 import 'globals.dart' as globals;
 
@@ -24,7 +25,6 @@ class _LogisticsLoginState extends State<LogisticsLogin> {
         "password": password,
         "connection": globals.Connection_String
       };
-      // ignore: avoid_print
       print(data.toString());
       final response = await http.post(
           Uri.parse(globals.Global_Api_URL + '/Logistics/Login'),
@@ -38,13 +38,27 @@ class _LogisticsLoginState extends State<LogisticsLogin> {
       setState(() {});
       if (response.statusCode == 200) {
         Map<String, dynamic> resposne = jsonDecode(response.body);
-        // ignore: avoid_print
         print(resposne["Data"]);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        print(prefs.getString('UserID'));
+        setState(() {
+          prefs.setString('UserID',
+              jsonDecode(response.body)['Data'][0]['USER_ID'].toString());
+          prefs.setString(
+              'UserNAME', jsonDecode(response.body)['Data'][0]['USER_NAME']);
+          prefs.setString("ReferenceID",
+              jsonDecode(response.body)['Data'][0]['REFERENCE_ID'].toString());
 
-        globals.Logistic_global_User_Id =
-            jsonDecode(response.body)['Data'][0]['USER_ID'].toString();
-        globals.Login_User_Name =
-            jsonDecode(response.body)['Data'][0]['EMP_NAME'].toString();
+          prefs
+              .setString(
+                  "EMpNaME", jsonDecode(response.body)['Data'][0]['EMP_NAME'])
+              .toString();
+        });
+
+        globals.Logistic_global_User_Id = (prefs.getString('UserID') ?? '');
+
+        globals.Login_User_Name = (prefs.getString('EMpNaME') ?? '');
+
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => LogisticDashboard()));
       } else {
