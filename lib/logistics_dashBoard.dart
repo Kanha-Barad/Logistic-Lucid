@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import './logistics_login.dart';
 import 'Logistics_CompletedSubmittedRejected_Trips.dart';
 import 'Logistics_Pending_Trips.dart';
@@ -62,7 +63,9 @@ class _LogisticDashboardState extends State<LogisticDashboard> {
               ),
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                await pref.clear();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LogisticsLogin()));
               },
