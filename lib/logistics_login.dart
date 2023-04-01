@@ -39,31 +39,42 @@ class _LogisticsLoginState extends State<LogisticsLogin> {
       if (response.statusCode == 200) {
         Map<String, dynamic> resposne = jsonDecode(response.body);
         print(resposne["Data"]);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        print(prefs.getString('UserID'));
-        setState(() {
-          prefs.setString('UserID',
-              jsonDecode(response.body)['Data'][0]['USER_ID'].toString());
-          prefs.setString(
-              'UserNAME', jsonDecode(response.body)['Data'][0]['USER_NAME']);
-          prefs.setString("ReferenceID",
-              jsonDecode(response.body)['Data'][0]['REFERENCE_ID'].toString());
+        if (resposne["Data"].length > 0) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          setState(() {
+            prefs.setString('UserID',
+                jsonDecode(response.body)['Data'][0]['USER_ID'].toString());
+            prefs.setString(
+                'UserNAME', jsonDecode(response.body)['Data'][0]['USER_NAME']);
+            prefs.setString(
+                "ReferenceID",
+                jsonDecode(response.body)['Data'][0]['REFERENCE_ID']
+                    .toString());
 
-          prefs
-              .setString(
-                  "EMpNaME", jsonDecode(response.body)['Data'][0]['EMP_NAME'])
-              .toString();
-        });
+            prefs
+                .setString(
+                    "EMpNaME", jsonDecode(response.body)['Data'][0]['EMP_NAME'])
+                .toString();
+          });
 
-        globals.Logistic_global_User_Id = (prefs.getString('UserID') ?? '');
+          globals.Logistic_global_User_Id = (prefs.getString('UserID') ?? '');
 
-        globals.Login_User_Name = (prefs.getString('EMpNaME') ?? '');
+          globals.Login_User_Name = (prefs.getString('EMpNaME') ?? '');
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => LogisticDashboard()));
-      } else {
-        logisticLoginError();
-      }
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => LogisticDashboard()));
+        } else {
+          Fluttertoast.showToast(
+              msg: "Invalid UserName and Password",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: const Color.fromARGB(255, 238, 26, 11),
+              textColor: Colors.white,
+              fontSize: 16.0);
+          // logisticLoginError();
+        }
+      } else {}
     }
 
     return Scaffold(
