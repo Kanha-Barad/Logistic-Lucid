@@ -3,7 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 String CompletedAreaID = "";
 var CompleteddataLastIndex = null;
 String CompletedTimeAreaLocartion = "";
-
+//1
+//4
+//Server=103.145.36.186;User id=himsdev;Password=suvarna@123;Database=UAT_LUCID_LIMS
 String Connection_String = "1";
 String Global_Api_URL = 'https://portal.luciddiagnostics.com/logisticapi/';
 
